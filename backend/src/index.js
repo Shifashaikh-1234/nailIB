@@ -23,6 +23,9 @@ console.log('Environment:', process.env.MONGO_URI)
 
 const PORT = process.env.PORT || 4000
 
+app.get('/', (req, res) => {
+  res.send('API is running...')
+})
 
 mongoose.connect(process.env.MONGO_URI)
 .then(() => {
