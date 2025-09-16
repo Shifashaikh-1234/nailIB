@@ -1,12 +1,14 @@
 import React, { useState } from "react"
 import api from "../utils/api"
 import { saveToken } from "../utils/auth"
+import {useNavigate} from react-router-dom
 
 export default function Login() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [msg, setMsg] = useState("")
   const [loading, setLoading] = useState(false)
+  const navigate = useNavigate()
 
   async function handleSubmit(e) {
     e.preventDefault()
@@ -15,6 +17,7 @@ export default function Login() {
       const r = await api.post("/auth/login", { email, password })
       saveToken(r.data.token)
       setMsg("✅ Login successful! Token saved.")
+      navigate("/")
     } catch (err) {
       setMsg(err.response?.data?.error || "❌ Login failed")
     }
