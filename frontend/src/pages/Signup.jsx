@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import api from "../utils/api"
-
+import {useNavigate} from "react-router-dom"
 import { saveToken } from "../utils/auth"
 
 export default function Signup() {
@@ -8,6 +8,7 @@ export default function Signup() {
   const [password, setPassword] = useState("")
   const [msg, setMsg] = useState("")
   const [loading, setLoading] = useState(false)
+  const navigate = useNavigate()
 
 
   async function handleSubmit(e) {
@@ -17,6 +18,7 @@ export default function Signup() {
       const r = await api.post("/auth/signup", { email, password })
       saveToken(r.data.token)
       setMsg("✅ Signup successful! Token saved.")
+      navigate("/login")
 
       
       
